@@ -45,12 +45,12 @@ version: '2'
 services:
    sogo:
 # if you prefer building by yourself
-#      build: 
-#         context: .
-#         args:
-#            version: 2.2.13
-# if you prefer using an image
-      image: julienfastre/sogo:3.1.4
+      build: 
+         context: .
+         args:
+            version: 2.2.13
+# if you prefer using an image (not created yet)
+#      image: julienfastre/sogo:3.1
       links: 
          - db
       volumes:
