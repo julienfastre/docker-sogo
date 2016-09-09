@@ -2,20 +2,24 @@ FROM ubuntu:16.04
 
 MAINTAINER Julien Fastré <julienfastre@cvfe.be>
 
-ARG version=3.1.4
+ARG version=3.1.5
+
+WORKDIR /tmp/build
 
 # download SOPE sources
-WORKDIR /tmp/src/sope
-ADD https://github.com/inverse-inc/sope/archive/SOPE-${version}.tar.gz .
-RUN tar -xf SOPE-${version}.tar.gz && mkdir /tmp/SOPE && mv sope-SOPE-${version}/* /tmp/SOPE/.
+ADD https://github.com/inverse-inc/sope/archive/SOPE-${version}.tar.gz /tmp/src/sope/sope.tar.gz
 
 # download sogo sources
-WORKDIR /tmp/src/SOGo
-ADD https://github.com/inverse-inc/sogo/archive/SOGo-${version}.tar.gz .
-RUN tar -xf SOGo-${version}.tar.gz && mkdir /tmp/SOGo && mv sogo-SOGo-${version}/* /tmp/SOGo/.
+ADD https://github.com/inverse-inc/sogo/archive/SOGo-${version}.tar.gz /tmp/src/SOGo/SOGo.tar.gz
 
-RUN apt-get update && \
-   apt-get install -qy --no-install-recommends \
+# prepare & compile
+RUN echo "untar SOPE sources" \
+   && tar -xf /tmp/src/sope/sope.tar.gz && mkdir /tmp/SOPE && mv sope-SOPE-${version}/* /tmp/SOPE/. \
+   && echo "untar SOGO sources"  \
+   && tar -xf /tmp/src/SOGo/SOGo.tar.gz && mkdir /tmp/SOGo && mv sogo-SOGo-${version}/* /tmp/SOGo/. \ 
+   && echo "install required packages" \
+   && apt-get update  \
+   && apt-get install -qy --no-install-recommends \
       gnustep-make \
       gnustep-base-common \
       libgnustep-base-dev \
@@ -26,33 +30,25 @@ RUN apt-get update && \
       libldap2-dev \
       postgresql-server-dev-9.5 \
       libmemcached-dev \
-      libcurl4-openssl-dev
-
-
-
-# compiling sope & sogo
-RUN cd /tmp/SOPE && \
-   ./configure --with-gnustep --enable-debug --disable-strip && \
-   make && \
-   make install && \
-   cd /tmp/SOGo && \
-   ./configure --enable-debug --disable-strip && \
-   make && \
-   make install
-   
-   
-# register sogo library
-RUN echo "/usr/local/lib/sogo" > /etc/ld.so.conf.d/sogo.conf && \
-   ldconfig
-
-# create sogo user
-RUN groupadd --system sogo && useradd --system --gid sogo sogo
-
-# create directories
-# Enforce directory existence and permissions
-RUN install -o sogo -g sogo -m 755 -d /var/run/sogo && \
-   install -o sogo -g sogo -m 750 -d /var/spool/sogo && \
-   install -o sogo -g sogo -m 750 -d /var/log/sogo
+      libcurl4-openssl-dev \
+   && echo "compiling sope & sogo" \
+   && cd /tmp/SOPE  \
+   && ./configure --with-gnustep --enable-debug --disable-strip  \
+   && make  \
+   && make install  \
+   && cd /tmp/SOGo  \
+   && ./configure --enable-debug --disable-strip  \
+   && make  \
+   && make install \
+   && echo "register sogo library" \
+   && echo "/usr/local/lib/sogo" > /etc/ld.so.conf.d/sogo.conf  \
+   && ldconfig \
+   && echo "create user sogo" \
+   && groupadd --system sogo && useradd --system --gid sogo sogo \
+   && echo "create directories and enforce permissions" \
+   && install -o sogo -g sogo -m 755 -d /var/run/sogo  \
+   && install -o sogo -g sogo -m 750 -d /var/spool/sogo  \
+   && install -o sogo -g sogo -m 750 -d /var/log/sogo
    
 # add sogo.conf
 ADD sogo.default.conf /etc/sogo/sogo.conf
