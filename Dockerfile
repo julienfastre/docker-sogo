@@ -64,10 +64,5 @@ USER sogo
 # load env
 RUN . /usr/share/GNUstep/Makefiles/GNUstep.sh
 
-# Number of Workers - has an impact on performance
-# you can tweak this parameters using --env when launching `docker run`
-# ex. : `docker run --env WorkersCount=8 sogo-image
-ENV WorkersCount 4
-
-CMD [ "sogod", "-WOUseWatchDog", " NO", "-WONoDetach", "YES", "-WOPort", "20000", "-WOWorkersCount", "${WorkersCount}", "-WOLogFile", "-", "-WOPidFile", "/tmp/sogo.pid"]
+CMD [ "sogod", "-WONoDetach", "YES", "-WOPort", "20000", "-WOLogFile", "-", "-WOPidFile", "/tmp/sogo.pid"]
 
