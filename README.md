@@ -1,8 +1,3 @@
-# Supported tags and respective `Dockerfile` links
-
-- `3.1.4`, `3.1`, `latest`
-
-
 # What is SOGo ?
 
 SOGo (formerly named Scalable OpenGroupware.org) is an open source collaborative software (groupware) server with a focus on simplicity and scalability. It is developed in Objective-C using PostgreSQL, Apache, and IMAP.
@@ -23,16 +18,21 @@ Since July 2016, Inverse Inc. [ask for some support](https://sogo.nu/nc/support/
 
 # How to use this image
 
-The requires :
+This image requires :
 
 - a working IMAP and SMTP server (not provided under docker container) ;
 - a postgresql / mysql database ;
 - memcached ;
 - some way to authenticate user: LDAP, SQL table, ... (see [the docs](SOGoInstallationGuide.pdf))
+- a configuration file
 
-Using the pattern one container = one process, this container only execute the `sogod` process.
+This container only execute the `sogod` process, [taking into account the best practice "running one process per container"](https://docs.docker.com/engine/userguide/eng-image/dockerfile_best-practices/#/run-only-one-process-per-container).
 
 In order to run it You should create an adapt a config file to your needs, [using the docs](SOGoInstallationGuide.pdf). This file should be recorded into the container as `/etc/sogo/sogo.conf`.
+
+## Using the command line
+
+**TO BE DONE**
 
 ## Using docker-compose
 
@@ -82,3 +82,16 @@ You should then be able to reach sogo on http://localhost:8080/SOGo.
 
 **Warning** after login, the redirection does not work and you will reach http://localhost/SOGo/<your path> instead of http://localhost:8080/SOGo/<your path>. Simply add the missing port part.
 
+## How to build this image
+
+The parameter `version` is required to build this image.
+
+Example of how to build this image : 
+
+```
+# download sources
+$ git clone https://framagit.org/julienfastre/docker-sogo.git
+$ cd docker-sogo
+# launch the build using the version 3.1.4
+$ docker build --build-arg version=3.1.4 .
+```
