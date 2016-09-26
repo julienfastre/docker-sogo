@@ -1,0 +1,33 @@
+version: '2'
+
+services:
+   sogo:
+      build: 
+         context: .
+         args:
+            - version=2.3.15
+
+      links: 
+         - db
+      environment:
+         - "WorkersCount=10"
+      volumes:
+         - /usr/local/lib/GNUstep/SOGo/WebServerResources/
+         - /home/julienfastre/Documents/informatique/sogo-compil/sogo.conf:/etc/sogo/sogo.conf
+   db:
+      image: postgres:9.5
+      ports:
+         - "5432"
+   memcached:
+      image: memcached:1.4-alpine
+   nginx:
+      image: nginx
+      links:
+         - sogo
+      volumes_from:
+         - sogo:ro
+      ports:
+         - "8080:80"
+      volumes: 
+         - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      
