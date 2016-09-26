@@ -48,9 +48,9 @@ services:
       build: 
          context: .
          args:
-            version: 2.2.13
-# if you prefer using an image (not created yet)
-#      image: julienfastre/sogo:3.1
+            version: 2.3.15
+# if you prefer using a pre-built image
+#      image: julienfastre/sogo:2.3
       links: 
          - db
       volumes:
