@@ -6,7 +6,7 @@ services:
 #      build: 
 #         context: .
 #         args:
-#            - version=2.3.16
+#            - version=3.1.5
 #     if you want to use builded image
       image: julienfastre/sogo:3.1
       links: 
