@@ -48,8 +48,8 @@ services:
       build: 
          context: .
          args:
-            version: 2.2.13
-# if you prefer using an image (not created yet)
+            version: 3.1.5
+# if you prefer using a pre-built image
 #      image: julienfastre/sogo:3.1
       links: 
          - db
@@ -92,6 +92,6 @@ Example of how to build this image :
 # download sources
 $ git clone https://framagit.org/julienfastre/docker-sogo.git
 $ cd docker-sogo
-# launch the build using the version 3.1.4
-$ docker build --build-arg version=3.1.4 .
+# launch the build using the version 3.1.5
+$ docker build --build-arg version=3.1.5 .
 ```
