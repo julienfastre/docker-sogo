@@ -53,6 +53,8 @@ RUN echo "untar SOPE sources" \
 # add sogo.conf
 ADD sogo.default.conf /etc/sogo/sogo.conf
 
+VOLUME /usr/local/lib/GNUstep/SOGo/WebServerResources
+
 EXPOSE 20000
 
 USER sogo

@@ -12,7 +12,7 @@ Microsoft Outlook support is provided through an OpenChange storage provider to 
 
 # Use with care and contribute to Inverse Inc
 
-This image is still experimental. Use with care.
+This image is in use in a organization of 80 people, without any known problem (except when we migrated from 2.3 to 3.2, see above).
 
 Since July 2016, Inverse Inc. [ask for some support](https://sogo.nu/nc/support/faq/article/why-production-packages-required-a-support-contract-from-inverse.html) to provide debian packages. This should help them to increase their investments in SOGo. If you can afford [this](https://sogo.nu/support/index_new.html#/commercial), you should consider getting support on Inverse Inc.
 
@@ -48,15 +48,14 @@ services:
       build: 
          context: .
          args:
-            version: 3.1.5
-# if you prefer using a pre-built image
-#      image: julienfastre/sogo:3.1
+         # replace by your desired  version
+            version: x.x.x
+# if you prefer using a pre-built image (replace by your desired version)
+#      image: julienfastre/sogo:x.x
       links: 
          - db
       volumes:
-         # required to allow nginx to access to resources
-         - /usr/local/lib/GNUstep/SOGo/WebServerResources/
-         # create 
+         # replace by your own file
          - /path/to/your/file/sogo.conf:/etc/sogo/sogo.conf
    db:
       image: postgres:9.5
@@ -95,3 +94,10 @@ $ cd docker-sogo
 # launch the build using the version 3.1.5
 $ docker build --build-arg version=3.1.5 .
 ```
+
+## migrating from 2.3 to 3.1|3.2 using docker-compose
+
+The assets (css, js, ...) are contained in a volume. Those assets are completely different from version 2.3 to version 3.1 and 3.2. If you used `docker-compose` and migrated from 2.3 to 3.2, you have to remove the volume containing those assets, to let a clean place for the asset for the new version.
+
+
+

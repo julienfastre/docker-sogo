@@ -2,18 +2,24 @@ version: '2'
 
 services:
    sogo:
+
 #      if you want to build your own image
-#      build: 
-#         context: .
-#         args:
-#            - version=2.3.16
-#     if you want to use builded image
-      image: julienfastre/sogo:3.1
+
+      build: 
+         context: .
+         args:
+            - version=3.2.0
+
+#     if you want to use builded image, uncomment next line
+#      image: julienfastre/sogo:3.1
+
       links: 
          - db
       volumes:
-         - /usr/local/lib/GNUstep/SOGo/WebServerResources/
-         - /path/to/my/sogo.conf:/etc/sogo/sogo.conf
+
+#     replace by the path to your own sogo.conf file
+
+         - ./../sogo.conf:/etc/sogo/sogo.conf
    db:
       image: postgres:9.5
       ports:
