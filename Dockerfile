@@ -2,7 +2,7 @@ FROM ubuntu:16.04
 
 MAINTAINER Julien Fastré <julienfastre@cvfe.be>
 
-ARG version=2.3.17
+ARG version=3.1.5
 
 WORKDIR /tmp/build
 
