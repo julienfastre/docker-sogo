@@ -8,10 +8,10 @@ services:
       build: 
          context: .
          args:
-            - version=3.1.5
+            - version=3.2.0
 
 #     if you want to use builded image, uncomment next line
-#      image: julienfastre/sogo:3.1
+#      image: julienfastre/sogo:3.2
 
       links: 
          - db
