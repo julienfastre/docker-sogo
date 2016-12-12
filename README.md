@@ -38,6 +38,10 @@ In order to run it You should create an adapt a config file to your needs, [usin
 
 This is a `docker-compose.yml` file you could adapt to launch this image :
 
+**Note** : the docker compose file in this project can be used, but it is using a non-standard port. After login, if you use a different port thant port 80, the redirection will not work and you will be redirected to `http://localhost/SOGo/<your path>` instead of `http://localhost:8080/SOGo/<your path>`. Simply add the missing port part (replace `http://localhost/SOGo` by `http://localhost:8080/SOGo`).
+
+
+
 ```
 
 version: '2'
@@ -71,15 +75,16 @@ services:
       volumes_from:
          - sogo:ro
       ports:
-         - "8080:80"
+          # publish on port 80
+          - "80:80"
+          # if port 80 is already in use, **replace** by this line. (for testing only) Note that, after login, you will have to add the ":8080" in url
+#         - "8080:80"
       volumes: 
          - ./nginx.conf:/etc/nginx/nginx.conf:ro
 
 ```
 
 You should then be able to reach sogo on http://localhost:8080/SOGo.
-
-**Warning** after login, the redirection does not work and you will reach http://localhost/SOGo/<your path> instead of http://localhost:8080/SOGo/<your path>. Simply add the missing port part.
 
 ## How to build this image
 
