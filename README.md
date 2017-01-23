@@ -73,6 +73,7 @@ services:
       links:
          - sogo
       volumes_from:
+         # you will be able to serve assets from sogo image
          - sogo:ro
       ports:
           # publish on port 80
@@ -84,7 +85,7 @@ services:
 
 ```
 
-You should then be able to reach sogo on http://localhost:8080/SOGo.
+You should then be able to reach sogo on http://localhost:PORT/SOGo. Using the actual `nginx.conf` file **and** using a different port than the port 80 or 443, after login, you will encounter an http error on page `http://localhost/SOGo/<something>` Simply re-add the PORT number to reach correct server.
 
 ## How to build this image
 
@@ -102,7 +103,12 @@ $ docker build --build-arg version=3.1.5 .
 
 ## migrating from 2.3 to 3.1|3.2 using docker-compose
 
-The assets (css, js, ...) are contained in a volume. Those assets are completely different from version 2.3 to version 3.1 and 3.2. If you used `docker-compose` and migrated from 2.3 to 3.2, you have to remove the volume containing those assets, to let a clean place for the asset for the new version.
+The assets (css, js, ...) are contained in a volume. Those assets are completely different from version 2.3 to version 3.1 and 3.2. If you used `docker-compose` and migrated from 2.3 to 3.2, you have to either :
 
+- remove the volume containing those assets, to let a clean place for the asset for the new version.
+- or use an anonymous volume, which will be re-created on each restart
 
+## Bug report
+
+Please reports bug on https://github.com/julienfastre/docker-sogo/issues
 
