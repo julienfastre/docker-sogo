@@ -108,6 +108,10 @@ The assets (css, js, ...) are contained in a volume. Those assets are completely
 - remove the volume containing those assets, to let a clean place for the asset for the new version.
 - or use an anonymous volume, which will be re-created on each restart
 
+## Usage of sendmail / `SOGoMailingMechanism`
+
+Sendmail is not installed in this image: sogo must be able to send mails using a smtp server. The `sogo.conf` file must have the option `SOGoMailingMechanism` on `smtp`. See [the section "SMTP Server Configuration" of the sogo manual](https://sogo.nu/files/docs/SOGo%20Installation%20Guide.pdf#33).
+
 ## Bug report
 
 Please reports bug on https://github.com/julienfastre/docker-sogo/issues
