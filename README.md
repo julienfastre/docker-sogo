@@ -97,8 +97,8 @@ Example of how to build this image :
 # download sources
 $ git clone https://framagit.org/julienfastre/docker-sogo.git
 $ cd docker-sogo
-# launch the build using the version 3.1.5
-$ docker build --build-arg version=3.1.5 .
+# launch the build using specific version (replace with your own version)
+$ docker build --build-arg version=x.x.x .
 ```
 
 ## migrating from 2.3 to 3.1|3.2 using docker-compose
