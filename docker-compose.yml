@@ -20,6 +20,8 @@ services:
 #     replace by the path to your own sogo.conf file
 
          - ./../sogo.conf:/etc/sogo/sogo.conf
+      environment:
+         - "TZ=Europe/Amsterdam"
    db:
       image: postgres:9.5
       ports:

@@ -61,6 +61,9 @@ services:
       volumes:
          # replace by your own file
          - /path/to/your/file/sogo.conf:/etc/sogo/sogo.conf
+      environment:
+         # set the timezone in environment (see https://serverfault.com/a/826222/194817)
+         - "TZ=Europe/Brussels"
    db:
       image: postgres:9.5
       # for debug purpose only: reach the database from outside
@@ -100,6 +103,10 @@ $ cd docker-sogo
 # launch the build using specific version (replace with your own version)
 $ docker build --build-arg version=x.x.x .
 ```
+
+## Timezone issue
+
+The timezone may be set in environement, using the `TZ` variable. See example in `docker-compose.yml`.
 
 ## migrating from 2.3 to 3.1|3.2 using docker-compose
 

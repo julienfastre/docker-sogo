@@ -2,7 +2,7 @@ FROM ubuntu:16.04
 
 MAINTAINER Julien Fastré <julienfastre@cvfe.be>
 
-ARG version=3.2.7
+ARG version=3.2.9
 
 WORKDIR /tmp/build
 
@@ -31,6 +31,7 @@ RUN echo "untar SOPE sources" \
       postgresql-server-dev-9.5 \
       libmemcached-dev \
       libcurl4-openssl-dev \
+      tzdata \
    && echo "compiling sope & sogo" \
    && cd /tmp/SOPE  \
    && ./configure --with-gnustep --enable-debug --disable-strip  \
