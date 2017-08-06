@@ -27,8 +27,10 @@ RUN echo "untar SOPE sources" \
       gobjc \
       libxml2-dev \
       libssl-dev \
+      libmysqlclient-dev \
       libldap2-dev \
       postgresql-server-dev-9.5 \
+      mysql-client \
       libmemcached-dev \
       libcurl4-openssl-dev \
       tzdata \
