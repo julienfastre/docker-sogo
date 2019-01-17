@@ -2,7 +2,7 @@ FROM ubuntu:16.04
 
 MAINTAINER Julien Fastré <julienfastre@cvfe.be>
 
-ARG version=3.2.9
+ARG version=3.2.10
 
 WORKDIR /tmp/build
 
@@ -27,8 +27,10 @@ RUN echo "untar SOPE sources" \
       gobjc \
       libxml2-dev \
       libssl-dev \
+      libmysqlclient-dev \
       libldap2-dev \
       postgresql-server-dev-9.5 \
+      mysql-client \
       libmemcached-dev \
       libcurl4-openssl-dev \
       tzdata \
